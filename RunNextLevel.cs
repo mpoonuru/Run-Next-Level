@@ -47,11 +47,13 @@ public class RunNextLevel : PRoConPluginAPI, IPRoConPluginInterface
 private bool fIsEnabled;
 private int fDebugLevel;
 private enumBoolYesNo fPIsEnabled;
+private int fTimeDelay;
 
 public RunNextLevel() {
 	fIsEnabled = false;
 	fDebugLevel = 2;
 	fPIsEnabled = enumBoolYesNo.No;
+	fTimeDelay = 10000;
 }
 
 public enum MessageType { Warning, Error, Exception, Normal };
@@ -140,7 +142,8 @@ public String GetPluginDescription() {
 <h2>Commands</h2>
 <p>No Need To Run Any Commands!</p>
 <h2>Settings</h2>
-<p>Just Enable the Plugin</p>
+<p>Run Next Level! Select Yes or No</p>
+<p>Delay Time! Enter the time in milli seconds 10 seconds = 10000, you can enter the time before the nextlevel is executed!</p>
 <h2>Development</h2>
 <p>OptimusPrimeIN</p>
 <h3>Changelog</h3>
@@ -156,8 +159,10 @@ public String GetPluginDescription() {
 public List<CPluginVariable> GetDisplayPluginVariables() {
 
 	List<CPluginVariable> lstReturn = new List<CPluginVariable>();
-    lstReturn.Add(new CPluginVariable("Enable or Disable|Run Next Level", fPIsEnabled.GetType(), fPIsEnabled));
+    lstReturn.Add(new CPluginVariable("Settings|Run Next Level", fPIsEnabled.GetType(), fPIsEnabled));
+    lstReturn.Add(new CPluginVariable("Settings|Delay Time", fTimeDelay.GetType(), fTimeDelay));
 	lstReturn.Add(new CPluginVariable("Settings|Debug level", fDebugLevel.GetType(), fDebugLevel));
+	
 	return lstReturn;
 }
 
@@ -166,15 +171,18 @@ public List<CPluginVariable> GetPluginVariables() {
 }
 
 public void SetPluginVariable(String strVariable, String strValue) {
-	if (Regex.Match(strVariable, @"Debug level").Success) {
+	if(strVariable.CompareTo("Run Next Level") == 0 && Enum.IsDefined(typeof(enumBoolYesNo), strValue) == true){
+		fPIsEnabled =(enumBoolYesNo)Enum.Parse(typeof(enumBoolYesNo), strValue);
+	}
+	else if (Regex.Match(strVariable, @"Delay Time").Success) {
+		int tmp2 = 10000;
+		int.TryParse(strValue, out tmp2);
+		fTimeDelay = tmp2;
+	}
+	else if (Regex.Match(strVariable, @"Debug level").Success) {
 		int tmp = 2;
 		int.TryParse(strValue, out tmp);
 		fDebugLevel = tmp;
-	}
-	if(Regex.Match(strVariable,@"Enable or Disable").Success){
-		enumBoolYesNo tmp1 = enumBoolYesNo.No;
-		enumBoolYesNo.TryParse(strVariable, out tmp1)
-		fIsEnabled = tmp;
 	}
 }
 
@@ -228,7 +236,7 @@ public override void OnRoundOverPlayers(List<CPlayerInfo> players) { }
 public override void OnRoundOverTeamScores(List<TeamScore> teamScores) { }
 
 public override void OnRoundOver(int winningTeamId) { 
-		System.Threading.Thread.Sleep(10000);
+		Thread.Sleep(fTimeDelay);
 		this.ExecuteCommand("procon.protected.send", "admin.say","!nextlevel", "all");
 		this.ExecuteCommand("procon.protected.send", "admin.say","!yes", "all");
 }
@@ -243,5 +251,3 @@ public override void OnLevelLoaded(String mapFileName, String Gamemode, int roun
 } // end RunNextLevel
 
 } // end namespace PRoConEvents
-
-
