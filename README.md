@@ -22,6 +22,7 @@ Or Contact: OptimusPrimeIN on admin@corehqservers.com
 Basic Maps Server:
 --------------------
  1. http://battlelog.battlefield.com/bf4/servers/show/pc/0a3b3d2a-0be3-4c3b-9258-d2995f516c72/CORE-HQ-1-2k-Tickets-Basic-Maps-Anti-Cheat/ 
+ 
 Premium Maps Server:
 -------------------
  1. http://battlelog.battlefield.com/bf4/servers/show/pc/38e917c1-0b4e-4b5d-a91e-6656e7a4c149/CORE-HQ-1-2k-Tickets-All-Maps-Anti-Cheat/#live
