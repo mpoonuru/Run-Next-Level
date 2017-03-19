@@ -206,6 +206,7 @@ public override void OnVersion(String serverType, String version) { }
 
 public override void OnServerInfo(CServerInfo serverInfo) {
 	ConsoleWrite("Debug level = " + fDebugLevel);
+	ConsoleWrite("Contact OptimusPrimeIN for any issues!");
 }
 
 public override void OnResponseError(List<String> requestWords, String error) { }
