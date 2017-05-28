@@ -1,9 +1,6 @@
 /* RunNextLevel.cs
-
 by optimusPrimeIN@corehqservers.Commands
-
 Free to use as is in any way you want with no warranty.
-
 */
 
 using System;
@@ -53,7 +50,7 @@ public RunNextLevel() {
 	fIsEnabled = false;
 	fDebugLevel = 2;
 	fPIsEnabled = enumBoolYesNo.No;
-	fTimeDelay = 10000;
+	fTimeDelay = 10;
 }
 
 public enum MessageType { Warning, Error, Exception, Normal };
@@ -70,7 +67,6 @@ public String FormatMessage(String msg, MessageType type) {
 
 	return prefix + msg;
 }
-
 
 public void LogWrite(String msg)
 {
@@ -236,10 +232,14 @@ public override void OnRoundOverPlayers(List<CPlayerInfo> players) { }
 
 public override void OnRoundOverTeamScores(List<TeamScore> teamScores) { }
 
-public override void OnRoundOver(int winningTeamId) { 
-		Thread.Sleep(fTimeDelay);
+public override void OnRoundOver(int winningTeamId) { 	
+		Thread aThread = new Thread(new ThreadStart(delegate {
+		Thread.CurrentThread.Name = "NextRoundTrigger";
+		Thread.Sleep(TimeSpan.FromSeconds(fTimeDelay));
 		this.ExecuteCommand("procon.protected.send", "admin.say","!nextlevel", "all");
 		this.ExecuteCommand("procon.protected.send", "admin.say","!yes", "all");
+		}));
+		aThread.Start();
 }
 
 public override void OnLoadingLevel(String mapFileName, int roundsPlayed, int roundsTotal) { }
