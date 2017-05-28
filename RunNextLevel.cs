@@ -141,7 +141,7 @@ public String GetPluginDescription() {
 <p>Run Next Level! Select Yes or No</p>
 <p>Delay Time! Enter the time in milli seconds 10 seconds = 10000, you can enter the time before the nextlevel is executed!</p>
 <h2>Development</h2>
-<p>OptimusPrimeIN</p>
+<p>OptimusPrimeIN In support with ColColonCleaner and pmkevinrudd </p>
 <h3>Changelog</h3>
 <blockquote><h4>1.0.0.0 (03-MAR-2017)</h4>
 	- initial version<br/>
