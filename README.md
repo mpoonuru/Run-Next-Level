@@ -17,6 +17,6 @@ Usage:
 Support:
 ---------
 visit: https://corehqnetwork.com
-Or Contact: OptimusPrimeIN on admin@corehqservers.com
+Or Contact: OptimusPrimeIN on admin@corehqnetwork.com
 
 https://ap.corehqnetwork.com
